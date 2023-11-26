@@ -18,19 +18,16 @@ export class LivresComponent implements OnInit {
   chargerLivres() {
     this.livreService.listeLivre().subscribe(livres => {
       this.livres = livres;
-      console.log('Livres:', this.livres);
+
       this.livres.forEach((livre) => {
-         this.livreService.loadImage(livre.image.idImage).subscribe(
-            (img: Image) => {
-               livre.imageStr = 'data:' + img.type + ';base64,' + img.image;
-               console.log('Image URL:', livre.imageStr);
-            }
-         );
+        livre.imageStr = 'data:' + livre.images[0].type + ';base64,' +
+          livre.images[0].image;
+
       });
-   });
-  }   
-    
-  
+    });
+  }
+
+
 
   supprimerLivre(l: Livre) {
     let conf = confirm("Etes-vous sûr ?");
@@ -44,28 +41,19 @@ export class LivresComponent implements OnInit {
 
   ngOnInit(): void {
     this.livreService.listeLivre().subscribe(l => {
-      console.log(l);
       this.livres = l;
-        this.livreService.listeLivre().subscribe(livres => {
-          this.livres = livres;
-          
-          this.livres.forEach((livre) => {
-            this.livreService.loadImage(livre.image.idImage).subscribe(
-              (img: Image) => {
-                livre.imageStr = 'data:' + img.type + ';base64,' + img.image;
-                console.log('Image URL:', livre.imageStr);
-              },
-              error => {
-                console.error('Erreur lors du chargement de l\'image:', error);
-              }
+
+      this.livreService.listeLivre().subscribe(livres => {
+        this.livres = livres;
+
+
+
+        this.livres.forEach((livre) => {
+          livre.imageStr = 'data:' + livre.images[0].type + ';base64,' +
+            livre.images[0].image;
+            });
+            })
+            } 
             );
-          });
-        });
-      })
-      
-
-
-
-  }
-
+            }
 }

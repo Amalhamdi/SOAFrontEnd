@@ -106,4 +106,17 @@ export class LivreService {
     console.log('Image URL:', url); 
     return this.http.get<Image>(url);
     }
+
+    uploadImageLivre(file: File, filename: string, idLivre:number): Observable<any>{
+      const imageFormData = new FormData();
+      imageFormData.append('image', file, filename);
+      const url = `${this.apiURL + '/image/uplaodImageLivre'}/${idLivre}`;
+      return this.http.post(url, imageFormData);
+      }
+
+      supprimerImage(id : number) {
+        const url = `${this.apiURL}/image/delete/${id}`;
+        return this.http.delete(url, httpOptions);
+        }
+        
 }

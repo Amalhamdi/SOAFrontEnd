@@ -9,4 +9,5 @@ export class Livre {
     genre! : Genre
     image! : Image
     imageStr!:string
+    images!: Image[];
     }
