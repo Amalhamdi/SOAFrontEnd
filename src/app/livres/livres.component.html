@@ -8,7 +8,8 @@
                         <th>nom</th>
                         <th>prix</th>
                         <th>date de Creation</th>
-                         <th>genre</th> 
+                        <th>genre</th>
+                        <th> image </th>
                     </tr>
                 </thead>
                 <tbody *ngFor="let livre of livres">
@@ -17,9 +18,19 @@
                         <td>{{livre.nomLivre}}</td>
                         <td>{{livre.prixLivre}}</td>
                         <td> {{livre.dateCreation | date:'dd/MM/yyyy'}} </td>
-                         <td> {{livre.genre.nomGenre}} </td> 
-                        <td><a *ngIf="authService.isAdmin()" class="btn btn-danger" (click)="supprimerLivre(livre)">Supprimer</a></td>
-                        <td><a *ngIf="authService.isAdmin()" class="btn btn-success" [routerLink]="['/updateLivre',livre.idLivre]">Modifier</a></td>
+                        <td> {{livre.genre.nomGenre}} </td>
+
+                        
+                        <td>
+                            <img class="card-img-top img-responsive" src="{{livre.imageStr}}" style="height: 50px; width: 100px">
+                         </td>
+                         
+                        
+                        <td><a *ngIf="authService.isAdmin()" class="btn btn-danger"
+                                (click)="supprimerLivre(livre)">Supprimer</a></td>
+                        <td><a *ngIf="authService.isAdmin()" class="btn btn-success"
+                                [routerLink]="['/updateLivre',livre.idLivre]">Modifier</a></td>
+
                     </tr>
                 </tbody>
             </table>

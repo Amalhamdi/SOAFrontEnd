@@ -1,3 +1,4 @@
+import { Image } from './../model/image.model';
 import { Component, OnInit } from '@angular/core';
 import { Livre } from '../model/livre.model';
 import { LivreService } from '../services/livre.service';
@@ -13,38 +14,46 @@ import { AuthService } from '../services/auth.service';
 export class AddLivreComponent implements OnInit {
 
   newLivre = new Livre
-  newIdGenre! : number;
+  newIdGenre!: number;
   newGenre!: Genre;
-  genres!:Genre[];
+  genres!: Genre[];
+
+  uploadedImage!: File;
+  imagePath: any;
 
 
-  constructor ( private livreService : LivreService,private router :Router,public authService: AuthService) {
+
+  constructor(private livreService: LivreService, private router: Router, public authService: AuthService) {
   }
-  
-  addLivre () {
-    // console.log(this.newLivre);
-  //  this.newGenre = 
-   // this.livreService.consulterGenre(this.newIdGenre);
- //   this.newLivre.genre = this.newGenre;
-   // this.livreService.ajouterLivre(this.newLivre);
-   // this.router.navigate(['livres']);
 
-   this.newLivre.genre= this.genres.find(g => g.idGenre == this.newIdGenre)!;
-   this.livreService.ajouterLivre(this.newLivre)
-   .subscribe(l => {
-   console.log(l);
-   this.router.navigate(['livres']);
-   });
+  addLivre() {
+   this.livreService
+    .uploadImage(this.uploadedImage, this.uploadedImage.name)
+    .subscribe((img: Image) => {
+    this.newLivre.image=img;
+    this.newLivre.genre= this.genres.find(g => g.idGenre
+    == this.newIdGenre)!;
+    this.livreService
+    .ajouterLivre(this.newLivre)
+    .subscribe(() => {
+    this.router.navigate(['livres']);
+    });
+    });
 
-  
-   }
-   
+
+  }
+
   ngOnInit(): void {
-    //this.genres = this.livreService.listeGenres();
-
     this.livreService.listeGenres().
-    subscribe(g => {this.genres = g._embedded.genres;
-    console.log(g);
+      subscribe(g => {
+        this.genres = g._embedded.genres;
+        console.log(g);
       });
-
-}}
+  }
+  onImageUpload(event: any) {
+    this.uploadedImage = event.target.files[0];
+    var reader = new FileReader();
+    reader.readAsDataURL(this.uploadedImage);
+    reader.onload = (_event) => { this.imagePath = reader.result; }
+  }
+}

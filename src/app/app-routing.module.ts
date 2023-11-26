@@ -16,7 +16,7 @@ const routes: Routes = [
   {path: "updateLivre/:id", component: UpdateLivreComponent},
   {path: "rechercheParGenre", component : RechercheParGenreComponent},
   {path: "rechercheParNom", component : RechercheParNomComponent},
-  {path: "listeGenres", component : ListeGenresComponent},
+  {path: "listeGenres", component : ListeGenresComponent,canActivate: [AdminGuard]},
   {path: 'login', component: LoginComponent},
   { path: 'app-forbidden', component: ForbiddenComponent },
   { path: "", redirectTo: "livres", pathMatch: "full" }

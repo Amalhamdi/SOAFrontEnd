@@ -10,10 +10,10 @@ export class AdminGuard implements CanActivate {
 
   canActivate(): boolean {
     if (this.authService.isAdmin()) {
-      return true; // Allow access for admin
+      return true;
     } else {
-      this.router.navigate(['/app-forbidden']); // Redirect to the forbidden page
-      return false; // Prevent access for non-admin users
+      this.router.navigate(['/app-forbidden']); 
+      return false; 
     }
   }
 }

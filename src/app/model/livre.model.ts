@@ -1,4 +1,5 @@
 import { Genre } from "./genre.model";
+import { Image } from "./image.model";
 
 export class Livre {
     idLivre? : number;
@@ -6,4 +7,6 @@ export class Livre {
     prixLivre? : number;
     dateCreation? : Date ;
     genre! : Genre
+    image! : Image
+    imageStr!:string
     }
