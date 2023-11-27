@@ -13,19 +13,28 @@ export class LivresComponent implements OnInit {
 
   livres!: Livre[];
 
+  apiurl:string='http://localhost:8080/livres/api';
+
+
   constructor(private livreService: LivreService, public authService: AuthService) { }
 
   chargerLivres() {
     this.livreService.listeLivre().subscribe(livres => {
       this.livres = livres;
 
-      this.livres.forEach((livre) => {
+      /*this.livres.forEach((livre) => {
         livre.imageStr = 'data:' + livre.images[0].type + ';base64,' +
-          livre.images[0].image;
+          livre.images[0].image;*/
 
       });
+  } 
+
+
+ /*  chargerLivres(){
+    this.livreService.listeLivre().subscribe(livres => {
+    this.livres = livres;
     });
-  }
+    } */
 
 
 
@@ -40,6 +49,9 @@ export class LivresComponent implements OnInit {
 
 
   ngOnInit(): void {
+
+    this.chargerLivres();
+    /*
     this.livreService.listeLivre().subscribe(l => {
       this.livres = l;
 
@@ -47,13 +59,12 @@ export class LivresComponent implements OnInit {
         this.livres = livres;
 
 
-
         this.livres.forEach((livre) => {
           livre.imageStr = 'data:' + livre.images[0].type + ';base64,' +
             livre.images[0].image;
-            });
-            })
-            } 
-            );
-            }
+        });
+      })
+    }
+    );*/
+  }
 }

@@ -10,7 +10,7 @@ import { LivreService } from '../services/livre.service';
 export class ListeGenresComponent implements OnInit{
 
   genres!:Genre [];
-  updatedGenre:Genre = {"idGenre":0,"nomGenre":""};
+  updatedGenre:Genre = {"idGenre":0,"nomGenre":"","descriptionGenre":""};
   ajout:boolean=true;
 
   constructor (private livreService : LivreService){}
@@ -18,7 +18,8 @@ export class ListeGenresComponent implements OnInit{
   ngOnInit(): void {
     this.livreService.listeGenres().
     subscribe(g => {this.genres = g._embedded.genres;
-    console.log(g);
+    console.log(g); 
+    this.chargerGenres;
     });
   }
 

@@ -26,21 +26,39 @@ export class AddLivreComponent implements OnInit {
   constructor(private livreService: LivreService, private router: Router, public authService: AuthService) {
   }
 
-  addLivre() {
-   this.livreService
-    .uploadImage(this.uploadedImage, this.uploadedImage.name)
-    .subscribe((img: Image) => {
-    this.newLivre.image=img;
-    this.newLivre.genre= this.genres.find(g => g.idGenre
-    == this.newIdGenre)!;
+  /* addLivre() {
     this.livreService
-    .ajouterLivre(this.newLivre)
-    .subscribe(() => {
-    this.router.navigate(['livres']);
-    });
-    });
+     .uploadImage(this.uploadedImage, this.uploadedImage.name)
+     .subscribe((img: Image) => {
+     this.newLivre.image=img;
+     this.newLivre.genre= this.genres.find(g => g.idGenre
+     == this.newIdGenre)!;
+ 
+ 
+     this.livreService
+     .ajouterLivre(this.newLivre)
+     .subscribe(() => {
+     this.router.navigate(['livres']);
+     });
+     
+     });
+ 
+ 
+   }*/
 
-
+  addLivre() {
+    this.newLivre.genre = this.genres.find(g => g.idGenre
+      == this.newIdGenre)!;
+    this.livreService
+      .ajouterLivre(this.newLivre)
+      .subscribe((livre) => {
+        this.livreService
+          .uploadImageFS(this.uploadedImage,
+            this.uploadedImage.name, livre.idLivre!)
+          .subscribe((response: any) => { }
+          );
+        this.router.navigate(['livres']);
+      });
   }
 
   ngOnInit(): void {
@@ -48,7 +66,11 @@ export class AddLivreComponent implements OnInit {
       subscribe(g => {
         this.genres = g._embedded.genres;
         console.log(g);
+
+        
       });
+
+      this.addLivre();
   }
   onImageUpload(event: any) {
     this.uploadedImage = event.target.files[0];

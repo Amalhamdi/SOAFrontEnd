@@ -46,11 +46,13 @@ export class UpdateLivreComponent implements OnInit {
            this.currentLivre.genre.idGenre;
  
  
-         this.livreService
-           .loadImage(this.currentLivre.image.idImage)
-           .subscribe((img: Image) => {
-             this.myImage = 'data:' + img.type + ';base64,' + img.image;
-           });
+         /*  this.livreService
+           .uploadImageFS(this.uploadedImage,
+             this.uploadedImage.name, l.idLivre!)
+           .subscribe((response: any) => { }
+           );*/
+
+           this.updateLivre();
        })
    }
   
@@ -88,13 +90,29 @@ export class UpdateLivreComponent implements OnInit {
      }
    }*/
 
-  updateLivre() {
+  /*updateLivre() {
     this.currentLivre.genre = this.genres.
       find(g => g.idGenre == this.updatedGenreId)!;
     this.livreService
       .updateLivre(this.currentLivre)
       .subscribe((l) => {
         this.router.navigate(['livres']);
+      });
+  }*/
+
+  updateLivre() {
+    this.currentLivre.genre = this.genres.
+      find(g => g.idGenre == this.updatedGenreId)!;
+    this.livreService
+      .updateLivre(this.currentLivre)
+      .subscribe((l) => {
+       
+        this.livreService
+        .uploadImageFS(this.uploadedImage,
+          this.uploadedImage.name, l.idLivre!)
+        .subscribe((response: any) => { }
+     )
+          this.router.navigate(['livres']);
       });
   }
 

@@ -1,39 +1,38 @@
 <div class="container">
-    <div class="card shadow mb-4">
-        <div class="card-body">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>id</th>
-                        <th>nom</th>
-                        <th>prix</th>
-                        <th>date de Creation</th>
-                        <th>genre</th>
-                        <th> image </th>
-                    </tr>
-                </thead>
-                <tbody *ngFor="let livre of livres">
-                    <tr>
-                        <td> {{livre.idLivre}}</td>
-                        <td>{{livre.nomLivre}}</td>
-                        <td>{{livre.prixLivre}}</td>
-                        <td> {{livre.dateCreation | date:'dd/MM/yyyy'}} </td>
-                        <td> {{livre.genre.nomGenre}} </td>
-
-                        
-                        <td>
-                            <img class="card-img-top img-responsive" src="{{livre.imageStr}}" style="height: 50px; width: 100px">
-                         </td>
-                         
-                        
-                        <td><a *ngIf="authService.isAdmin()" class="btn btn-danger"
-                                (click)="supprimerLivre(livre)">Supprimer</a></td>
-                        <td><a *ngIf="authService.isAdmin()" class="btn btn-success"
-                                [routerLink]="['/updateLivre',livre.idLivre]">Modifier</a></td>
-
-                    </tr>
-                </tbody>
-            </table>
+    <div class="row">
+        <div class="col-4 mb-4" *ngFor="let livre of livres">
+            <div class="card shadow my-card">
+                <img class="card-img-top img-responsive" src="{{apiurl+'/image/loadfromFS/'+livre.idLivre}}" alt="{{livre.nomLivre}}" style="height: 200px; width: 100%">
+                <div class="card-body">
+                    <h5 class="card-title">{{livre.nomLivre}}</h5>
+                    <table class="table table-striped">
+                        <tr>
+                            <td><strong>ID:</strong></td>
+                            <td>{{livre.idLivre}}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Nom:</strong></td>
+                            <td>{{livre.nomLivre}}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Prix:</strong></td>
+                            <td>{{livre.prixLivre}}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Date de création:</strong></td>
+                            <td>{{livre.dateCreation | date:'dd/MM/yyyy'}}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Genre:</strong></td>
+                            <td>{{livre.genre.nomGenre}}</td>
+                        </tr>
+                    </table>
+                    <div *ngIf="authService.isAdmin()">
+                        <a class="btn btn-danger" (click)="supprimerLivre(livre)">Supprimer</a>
+                        <a class="btn btn-success" [routerLink]="['/updateLivre',livre.idLivre]">Modifier</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

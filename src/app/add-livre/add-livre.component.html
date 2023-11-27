@@ -1,50 +1,37 @@
 <div class="container">
-    <div>
-        <h2>Ajouter un livre :</h2>
-    </div>
-    <form>
-         <!--
-        <div class="col-sm-2 col-md-2 col-lg-2">
-            <label>ID livre</label>
-            <input type="text" [(ngModel)]="newLivre.idLivre" name="idProduit" class="form-control">
-        </div>-->
-        <div class="col-sm-4 col-md-4 col-lg-4">
-            <label>Nom livre</label>
-            <input type="text" [(ngModel)]="newLivre.nomLivre" name="nomProduit" class="form-control">
-        </div>
-        <div class="col-sm-2 col-md-2 col-lg-2">
-            <label>Prix livre</label>
-            <input type="number" [(ngModel)]="newLivre.prixLivre" name="prixProduit" class="form-control">
-        </div>
-        <div class="col-sm-4 col-md-4 col-lg-4">
-            <label>Date création</label>
-            <input type="date" [(ngModel)]="newLivre.dateCreation" name="dateCreation" class="form-control">
-        </div>
-
-       <div class="col-sm-4 col-md-4 col-lg-4">
-            <label>Genre</label>
-            <select class="form-control form-control-lg" id="idGenre" name="idGenre"
-            [(ngModel)]="newIdGenre">
-             <option *ngFor="let g of genres" [value]="g.idGenre" >
-             {{g.nomGenre}}
-            </option>
-            </select>
-            </div> 
-
-            <div class="col-sm-16 col-md-16 col-lg-16">
-                <label class="mb-2">Image :</label>
-                <input type="file" (change)="onImageUpload($event)"
-                name="logo" class="form-control">
+    <h2>Ajouter un livre :</h2>
+    <div class="card mt-4">
+        <div class="card-body">
+            <form>
+                <div class="mb-3">
+                    <label for="nomLivre" class="form-label">Nom livre</label>
+                    <input type="text" [(ngModel)]="newLivre.nomLivre" name="nomLivre" class="form-control" id="nomLivre" required>
                 </div>
-
-                <div class="col-sm-16 col-md-16 col-lg-16">
-                    <img [src]="imagePath" class="card-img-top img-fluid rounded-start"
-                    style="width: 500px; height: 300px" />
-                    </div>
-                    
-            
-        <div class="mt-2">
-            <button type="submit" (click)="addLivre()" class="btn btn-success">Ajouter</button>
+                <div class="mb-3">
+                    <label for="prixLivre" class="form-label">Prix livre</label>
+                    <input type="number" [(ngModel)]="newLivre.prixLivre" name="prixLivre" class="form-control" id="prixLivre" required>
+                </div>
+                <div class="mb-3">
+                    <label for="dateCreation" class="form-label">Date création</label>
+                    <input type="date" [(ngModel)]="newLivre.dateCreation" name="dateCreation" class="form-control" id="dateCreation" required>
+                </div>
+                <div class="mb-3">
+                    <label for="idGenre" class="form-label">Genre</label>
+                    <select class="form-control" id="idGenre" name="idGenre" [(ngModel)]="newIdGenre" required>
+                        <option *ngFor="let g of genres" [value]="g.idGenre">{{g.nomGenre}}</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="image" class="form-label">Image :</label>
+                    <input type="file" (change)="onImageUpload($event)" name="image" class="form-control" id="image" accept="image/*" required>
+                </div>
+                <div class="mb-3">
+                    <img [src]="imagePath" class="card-img-top img-fluid rounded-start" style="width: 100%;" />
+                </div>
+                <div class="mt-2">
+                    <button type="submit" (click)="addLivre()" class="btn btn-success">Ajouter</button>
+                </div>
+            </form>
         </div>
-    </form>
-</div> 
+    </div>
+</div>
